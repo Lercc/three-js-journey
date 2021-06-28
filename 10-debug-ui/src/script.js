@@ -1,7 +1,38 @@
-import './style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import gsap from 'gsap'
+import './style.css';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import gsap from 'gsap';
+import * as dat from 'dat.gui';
+
+
+/**
+ * Debug
+ */
+const gui = new dat.GUI({ closed: true, width: 300});
+// gui.hide();
+
+/**
+ * Colors
+ */
+const parameters = {
+    color: '#46b372',
+    spin: () => {
+        gsap.to(mesh.rotation, { duration: 1, y: mesh.rotation.y + Math.PI * 2 })
+    }
+}
+
+
+// Debug:functions
+gui.add(parameters, 'spin')
+    .name('cube spin')
+
+
+// Debug:colors
+gui.addColor(parameters, 'color')
+    .name('cube color')
+    .onChange(() => {
+        material.color.set(parameters.color)
+    });
 
 /**
  * Base
@@ -16,9 +47,38 @@ const scene = new THREE.Scene()
  * Object
  */
 const geometry = new THREE.BoxBufferGeometry(1, 1, 1)
-const material = new THREE.MeshBasicMaterial({ color: 0xff0000 })
+const material = new THREE.MeshBasicMaterial({ color: parameters.color })
 const mesh = new THREE.Mesh(geometry, material)
 scene.add(mesh)
+
+// Debug: mesh-position
+gui.add(mesh.position, 'x')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('cube pos. X');
+
+gui.add(mesh.position, 'y')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('cube pos. Y');
+
+gui.add(mesh.position, 'z')
+    .min(-3)
+    .max(3)
+    .step(0.01)
+    .name('cube pos. Z');
+
+// Debug: mesh-visible
+gui.add(mesh, 'visible')
+    .name('cube visible');
+
+// Debug: material-wireframe
+gui.add(material, 'wireframe')
+    .name('cube wireframe');
+
+
 
 /**
  * Sizes
