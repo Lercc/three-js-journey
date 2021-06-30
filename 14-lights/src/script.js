@@ -45,6 +45,8 @@ var hemisphereLightFolder = gui.addFolder('hemisphere light');
 hemisphereLightFolder.add(hemisphereLight, 'visible');
 hemisphereLightFolder.add(hemisphereLight, 'intensity').min(0).max(1).step(0.0001);
 
+
+
 /**
  * Objects
  */
