@@ -7,30 +7,35 @@ import * as dat from 'dat.gui'
  * Base
  */
 // Debug
-const gui = new dat.GUI()
+const gui = new dat.GUI();
 
 // Canvas
-const canvas = document.querySelector('canvas.webgl')
+const canvas = document.querySelector('canvas.webgl');
 
 // Scene
-const scene = new THREE.Scene()
+const scene = new THREE.Scene();
 
 /**
  * Lights
  */
 
 // AMBIENT LIGTH
-const ambientLight = new THREE.AmbientLight('#ffffff', 0.5)
-scene.add(ambientLight)
-
+const ambientLight = new THREE.AmbientLight('#ffffff', 0.5);
+scene.add(ambientLight);
 // debug: ambient light
 var ambientLightFolder = gui.addFolder('ambient light');
-ambientLightFolder.add(ambientLight, 'intensity')
-    .min(0)
-    .max(1)
-    .step(0.0001)
 ambientLightFolder.add(ambientLight, 'visible');
+ambientLightFolder.add(ambientLight, 'intensity').min(0).max(1).step(0.0001);
 
+// DIRECTIONAL LIGHT
+const directionalLight = new THREE.DirectionalLight('#00fffc', 0.3);
+directionalLight.position.set(1, 0.25, 0);
+scene.add(directionalLight);
+// debug: directional light
+var directionalLightfolder = gui.addFolder('directional light');
+directionalLightfolder.add(directionalLight, 'visible')
+directionalLightfolder.add(directionalLight, 'intensity').min(0).max(1).step(0.0001);
+directionalLightfolder.add(directionalLight.position, 'x').min(-3).max(3).step(0.0001);
 
 /**
  * Objects
