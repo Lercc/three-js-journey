@@ -37,6 +37,14 @@ directionalLightfolder.add(directionalLight, 'visible')
 directionalLightfolder.add(directionalLight, 'intensity').min(0).max(1).step(0.0001);
 directionalLightfolder.add(directionalLight.position, 'x').min(-3).max(3).step(0.0001);
 
+// HEMISPHERE LIGHT
+const hemisphereLight = new THREE.HemisphereLight('#ff0000', '#0000ff', 0.3);
+scene.add(hemisphereLight);
+// debug: hemisphere light
+var hemisphereLightFolder = gui.addFolder('hemisphere light');
+hemisphereLightFolder.add(hemisphereLight, 'visible');
+hemisphereLightFolder.add(hemisphereLight, 'intensity').min(0).max(1).step(0.0001);
+
 /**
  * Objects
  */
