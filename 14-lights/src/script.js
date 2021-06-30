@@ -45,7 +45,16 @@ var hemisphereLightFolder = gui.addFolder('hemisphere light');
 hemisphereLightFolder.add(hemisphereLight, 'visible');
 hemisphereLightFolder.add(hemisphereLight, 'intensity').min(0).max(1).step(0.0001);
 
-
+// POINT LIGHT
+const pointLight = new THREE.PointLight('#ff9000', 0.5, 10, 2);
+pointLight.position.set(1, -0.5, 1);
+scene.add(pointLight);
+// debug: point light
+var pointLightFolder = gui.addFolder('point light');
+pointLightFolder.add(pointLight, 'visible');
+pointLightFolder.add(pointLight, 'intensity').min(0).max(1).step(0.0001);
+pointLightFolder.add(pointLight, 'distance').min(0).max(10).step(0.0001);
+pointLightFolder.add(pointLight, 'decay').min(0).max(10).step(0.0001);
 
 /**
  * Objects
