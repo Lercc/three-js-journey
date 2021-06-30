@@ -2,6 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
+import { Vector3 } from 'three';
 
 /**
  * Base
@@ -55,6 +56,18 @@ pointLightFolder.add(pointLight, 'visible');
 pointLightFolder.add(pointLight, 'intensity').min(0).max(1).step(0.0001);
 pointLightFolder.add(pointLight, 'distance').min(0).max(10).step(0.0001);
 pointLightFolder.add(pointLight, 'decay').min(0).max(10).step(0.0001);
+
+// RECT AREA LIGHT
+const rectAreaLight = new THREE.RectAreaLight('#4e00ff', 2, 1, 1);
+rectAreaLight.position.set(-1.5, 0, 1.5);
+rectAreaLight.lookAt(new THREE.Vector3())
+
+scene.add(rectAreaLight);
+// debug: rect area light
+var rectAreaLightFolder = gui.addFolder('rect area light');
+rectAreaLightFolder.add(rectAreaLight, 'visible');
+rectAreaLightFolder.add(rectAreaLight, 'intensity').min(0).max(4).step(0.0001);
+
 
 /**
  * Objects
