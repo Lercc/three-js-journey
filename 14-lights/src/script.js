@@ -1,8 +1,8 @@
-import './style.css'
-import * as THREE from 'three'
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
-import * as dat from 'dat.gui'
-import { Scene, SpotLight, Vector3 } from 'three';
+import './style.css';
+import * as THREE from 'three';
+import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
+import * as dat from 'dat.gui';
+import { RectAreaLightHelper } from 'three/examples/jsm/helpers/RectAreaLightHelper.js';
 
 /**
  * Base
@@ -56,6 +56,9 @@ pointLightFolder.add(pointLight, 'visible');
 pointLightFolder.add(pointLight, 'intensity').min(0).max(1).step(0.0001);
 pointLightFolder.add(pointLight, 'distance').min(0).max(10).step(0.0001);
 pointLightFolder.add(pointLight, 'decay').min(0).max(10).step(0.0001);
+pointLightFolder.add(pointLight.position, 'x').min(-3).max(3).step(0.0001).name('position X');
+pointLightFolder.add(pointLight.position, 'y').min(-3).max(3).step(0.0001).name('position Y');
+pointLightFolder.add(pointLight.position, 'z').min(-3).max(3).step(0.0001).name('position Z');
 
 // RECT AREA LIGHT
 const rectAreaLight = new THREE.RectAreaLight('#4e00ff', 2, 1, 1);
@@ -66,6 +69,9 @@ scene.add(rectAreaLight);
 var rectAreaLightFolder = gui.addFolder('rect area light');
 rectAreaLightFolder.add(rectAreaLight, 'visible');
 rectAreaLightFolder.add(rectAreaLight, 'intensity').min(0).max(4).step(0.0001);
+rectAreaLightFolder.add(rectAreaLight.position, 'x').min(-3).max(3).step(0.0001).name('position x');
+rectAreaLightFolder.add(rectAreaLight.position, 'y').min(-3).max(3).step(0.0001).name('position y');
+rectAreaLightFolder.add(rectAreaLight.position, 'z').min(-3).max(3).step(0.0001).name('position z');
 rectAreaLightFolder.add(rectAreaLight.rotation, 'y').min(-3).max(3).step(0.0001).name('rotate y');
 
 // SPOT LIGHT
@@ -87,8 +93,32 @@ spotLightFolder.add(spotLight.target.position, 'x').min(-3).max(3).step(0.0001).
 spotLightFolder.add(spotLight.target.position, 'y').min(-3).max(3).step(0.0001).name('position Y');
 spotLightFolder.add(spotLight.target.position, 'z').min(-3).max(3).step(0.0001).name('position Z');
 
+//
+// Helpers
+//
+// directional light helper
+const directionalLightHelper = new THREE.DirectionalLightHelper(directionalLight, 0.2);
+scene.add(directionalLightHelper);
 
+// hemisphere light helper
+const hemisphereLightHelper = new THREE.HemisphereLightHelper(hemisphereLight, 0.2);
+scene.add(hemisphereLightHelper);
 
+// point light helper
+const pointLightHelper = new THREE.PointLightHelper(pointLight, 0.2);
+scene.add(pointLightHelper);
+
+// rect area light helper
+const rectAreaLightHelper = new RectAreaLightHelper(rectAreaLight);
+scene.add(rectAreaLightHelper);
+
+// spot light helper
+const spotLightHelper = new THREE.SpotLightHelper(spotLight);
+scene.add(spotLightHelper);
+
+window.requestAnimationFrame(() => {
+    spotLightHelper.update();
+});
 
 /**
  * Objects
