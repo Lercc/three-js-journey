@@ -2,7 +2,7 @@ import './style.css'
 import * as THREE from 'three'
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js'
 import * as dat from 'dat.gui'
-import { Vector3 } from 'three';
+import { Scene, SpotLight, Vector3 } from 'three';
 
 /**
  * Base
@@ -61,12 +61,33 @@ pointLightFolder.add(pointLight, 'decay').min(0).max(10).step(0.0001);
 const rectAreaLight = new THREE.RectAreaLight('#4e00ff', 2, 1, 1);
 rectAreaLight.position.set(-1.5, 0, 1.5);
 rectAreaLight.lookAt(new THREE.Vector3())
-
 scene.add(rectAreaLight);
 // debug: rect area light
 var rectAreaLightFolder = gui.addFolder('rect area light');
 rectAreaLightFolder.add(rectAreaLight, 'visible');
 rectAreaLightFolder.add(rectAreaLight, 'intensity').min(0).max(4).step(0.0001);
+rectAreaLightFolder.add(rectAreaLight.rotation, 'y').min(-3).max(3).step(0.0001).name('rotate y');
+
+// SPOT LIGHT
+const spotLight = new THREE.SpotLight('#78ff00', 0.5, 10, Math.PI * 0.1, 0.25, 1);
+spotLight.position.set(0, 2, 3);
+scene.add(spotLight);
+
+scene.add(spotLight.target);
+spotLight.target.position.x = -0.95;
+// debug: spot light
+var spotLightFolder = gui.addFolder('spot light');
+spotLightFolder.add(spotLight, 'visible');
+spotLightFolder.add(spotLight, 'intensity').min(0).max(2).step(0.0001);
+spotLightFolder.add(spotLight, 'distance').min(0).max(20).step(0.0001);
+spotLightFolder.add(spotLight, 'angle').min(0).max(3).step(0.0001);
+spotLightFolder.add(spotLight, 'penumbra').min(0).max(1).step(0.0001);
+spotLightFolder.add(spotLight, 'decay').min(0).max(5).step(0.0001);
+spotLightFolder.add(spotLight.target.position, 'x').min(-3).max(3).step(0.0001).name('position X');
+spotLightFolder.add(spotLight.target.position, 'y').min(-3).max(3).step(0.0001).name('position Y');
+spotLightFolder.add(spotLight.target.position, 'z').min(-3).max(3).step(0.0001).name('position Z');
+
+
 
 
 /**
