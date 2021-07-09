@@ -27,6 +27,12 @@
 
       <v-spacer></v-spacer>
 
+      <p class="" style="outline:red 1px solid; color:red">
+        <router-link :to="{ name: 'Grid' }">grid</router-link>
+
+        <router-link :to="{ name: 'About' }">about</router-link>
+      </p>
+
       <v-btn
         href="https://github.com/vuetifyjs/vuetify/releases/latest"
         target="_blank"
